@@ -53,6 +53,10 @@ npm start
 
 
 
+
+
+
+
     
 ## Optimizations
 
@@ -71,3 +75,7 @@ npm start
 
 
 
+
+## Note: 
+
+There was a dependency conflict in the frontend when trying to install the dependencies, tried to solve it, but could not be finished due to time limitation
