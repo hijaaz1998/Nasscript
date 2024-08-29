@@ -13,6 +13,8 @@ import axios from "axios";
 import { useDropzone } from "react-dropzone";
 import CloudUploadIcon from "@material-ui/icons/CloudUpload";
 
+const API = process.env.REACT_APP_API_URL;
+
 const UploadSection = ({ getRootProps, getInputProps, fileName, label }) => (
   <Paper
     elevation={3}
@@ -141,7 +143,7 @@ const CreateEmployee = () => {
       }
     }
     try {
-      await axios.post("http://localhost:5000/api/employees", formData, {
+      await axios.post(`${API}/employees`, formData, {
         headers: {
           "Content-Type": "multipart/form-data",
         },

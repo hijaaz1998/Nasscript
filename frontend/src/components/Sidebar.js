@@ -6,7 +6,7 @@ import AddIcon from '@material-ui/icons/Add';
 import EventNoteIcon from '@material-ui/icons/EventNote';
 import AssessmentIcon from '@material-ui/icons/Assessment';
 
-const Sidebar = ({ isOpen, toggleSidebar }) => {
+const Sidebar = React.memo(({ isOpen, toggleSidebar }) => {
   const menuItems = [
     { text: 'Dashboard', icon: <HomeIcon />, path: '/' },
     { text: 'Create Employee', icon: <AddIcon />, path: '/create' },
@@ -26,6 +26,6 @@ const Sidebar = ({ isOpen, toggleSidebar }) => {
       </List>
     </Drawer>
   );
-};
+})
 
 export default Sidebar;

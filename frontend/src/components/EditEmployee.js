@@ -22,6 +22,8 @@ import {
 } from "@mui/material";
 import axios from "axios";
 
+const API = process.env.REACT_APP_API_URL;
+
 const EditEmployee = () => {
   const { id } = useParams(); // Get employeeId from URL parameters
   const [employee, setEmployee] = useState(null);
@@ -61,7 +63,7 @@ const EditEmployee = () => {
     const fetchEmployee = async () => {
       try {
         const response = await axios.get(
-          `http://localhost:5000/api/employees/${id}`
+          `${API}/employees/${id}`
         );
         setEmployee(response.data);
         setFormData({

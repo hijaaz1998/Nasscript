@@ -12,7 +12,7 @@ const useStyles = makeStyles(() => ({
   },
 }));
 
-const Header = ({ toggleSidebar }) => {
+const Header = React.memo(({ toggleSidebar }) => {
   const classes = useStyles();
 
   return (
@@ -27,6 +27,6 @@ const Header = ({ toggleSidebar }) => {
       </Toolbar>
     </AppBar>
   );
-};
+});
 
 export default Header;

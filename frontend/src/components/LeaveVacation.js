@@ -4,6 +4,8 @@ import { Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Paper
 import { DatePicker } from "@mui/x-date-pickers/DatePicker";
 import axios from 'axios';
 
+const API = process.env.REACT_APP_API_URL;
+
 const LeaveVacation = () => {
   const [employees, setEmployees] = useState([]);
   const [leave, setLeave] = useState({
@@ -17,12 +19,12 @@ const LeaveVacation = () => {
 
   useEffect(() => {
     const fetchEmployees = async () => {
-      const res = await axios.get('http://localhost:5000/api/employees');
+      const res = await axios.get(`${API}/employees`);
       setEmployees(res.data.employees);
     };
 
     const fetchLeaveVacations = async () => {
-      const res = await axios.get('http://localhost:5000/api/leave-vacations');
+      const res = await axios.get(`${API}/leave-vacations`);
       setLeaveVacations(res.data);
     };
 
@@ -63,11 +65,11 @@ const LeaveVacation = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      await axios.post('http://localhost:5000/api/leave-vacations', leave);
+      await axios.post(`${API}/leave-vacations`, leave);
       alert('Leave vacation created successfully');
       setOpen(false);
       // Fetch updated leave vacations list
-      const res = await axios.get('http://localhost:5000/api/leave-vacations');
+      const res = await axios.get(`${API}/leave-vacations`);
       setLeaveVacations(res.data);
     } catch (error) {
       console.error('Error creating leave vacation:', error);

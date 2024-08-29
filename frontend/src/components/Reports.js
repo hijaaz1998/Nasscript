@@ -1,19 +1,33 @@
-import React, { useState, useEffect } from 'react';
-import { TextField, Button, MenuItem, Grid, Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Paper } from '@material-ui/core';
-import axios from 'axios';
+import React, { useState, useEffect } from "react";
+import {
+  TextField,
+  Button,
+  MenuItem,
+  Grid,
+  Table,
+  TableBody,
+  TableCell,
+  TableContainer,
+  TableHead,
+  TableRow,
+  Paper,
+} from "@material-ui/core";
+import axios from "axios";
+
+const API = process.env.REACT_APP_API_URL;
 
 const Reports = () => {
-  const [reportType, setReportType] = useState('');
+  const [reportType, setReportType] = useState("");
   const [reportData, setReportData] = useState([]);
 
   const reportTypes = [
-    { value: 'idExpiry', label: 'Employee ID Expiry Details' },
-    { value: 'passportExpiry', label: 'Employee Passport Expiry' },
-    { value: 'medicalExpiry', label: 'Employee Medical Expiry' },
-    { value: 'vacation', label: 'Employee Vacation' },
-    { value: 'branchWise', label: 'Branch Wise Employee' },
-    { value: 'designationWise', label: 'Designation Wise Employee' },
-    { value: 'gatePass', label: 'Employee Gate Pass' },
+    { value: "idExpiry", label: "Employee ID Expiry Details" },
+    { value: "passportExpiry", label: "Employee Passport Expiry" },
+    { value: "medicalExpiry", label: "Employee Medical Expiry" },
+    { value: "vacation", label: "Employee Vacation" },
+    { value: "branchWise", label: "Branch Wise Employee" },
+    { value: "designationWise", label: "Designation Wise Employee" },
+    { value: "gatePass", label: "Employee Gate Pass" },
   ];
 
   const handleReportTypeChange = (e) => {
@@ -22,11 +36,14 @@ const Reports = () => {
 
   const fetchReportData = async () => {
     try {
-      const res = await axios.get(`http://localhost:5000/api/reports/${reportType}`);
+      console.log("reportType", reportType);
+      const res = await axios.get(
+        `${API}/reports/${reportType}`
+      );
       setReportData(res.data);
     } catch (error) {
-      console.error('Error fetching report data:', error);
-      alert('Error fetching report data');
+      console.error("Error fetching report data:", error);
+      alert("Error fetching report data");
     }
   };
 
@@ -35,6 +52,8 @@ const Reports = () => {
       fetchReportData();
     }
   }, [reportType]);
+
+  console.log("reportsdata", reportData);
 
   return (
     <div className="p-4">
@@ -66,10 +85,14 @@ const Reports = () => {
                   </TableRow>
                 </TableHead>
                 <TableBody>
-                  {reportData.map((row, index) => (
+                  {reportData.map((row, index) => ( 
                     <TableRow key={index}>
                       {Object.values(row).map((value, i) => (
-                        <TableCell key={i}>{value}</TableCell>
+                        <TableCell key={i}>
+                          {typeof value === "object" && value !== null
+                            ? value.idPrinting // Adjust this based on the property you want to display
+                            : value}
+                        </TableCell>
                       ))}
                     </TableRow>
                   ))}
